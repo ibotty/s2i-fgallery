@@ -1,0 +1,17 @@
+#!/bin/bash -e
+FGALLERY_OPTIONS="${FGALLERY_OPTIONS-}"
+
+if [ "$1" = "-h" ]; then
+    # If the 's2i-nginx' assemble script is executed with '-h' flag,
+    # print the usage.
+    exec /usr/local/s2i/usage
+fi
+
+echo "---> Generating gallery with options $FGALLERY_OPTIONS"
+fgallery $FGALLERY_OPTIONS /tmp/src ./html
+
+echo "---> Testing config"
+$NGINX_BASE_DIR/root/usr/sbin/nginx -c /opt/app-root/etc/nginx.conf -t
+
+echo "---> Cleanup"
+rm -f /opt/app-root/run/nginx.pid $NGINX_BASE_DIR/log/nginx/error.log
