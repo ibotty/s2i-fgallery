@@ -14,7 +14,8 @@ USER 0
 # fbida (for exiftran) is from li.nux.ro,
 # opencv-* needed for (optional) facedetect,
 # jpegoptim, pngcrush and p7zip are optional
-RUN rpm -Uvh https://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
+RUN yum install -y epel-release \
+ && rpm -Uvh https://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm \
  && rpmkeys --import /etc/pki/rpm-gpg/RPM-GPG-KEY-nux.ro \
  && yum install --setopt=tsflags=nodocs -y \
         ImageMagick lcms2-utils zip perl-Image-ExifTool perl-Cpanel-JSON-XS perl-Time-Piece \
